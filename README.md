@@ -2,6 +2,7 @@
 
 FinAP2ReBAP is a MATLAB implementation for reconstructing brachial artery pressure (BAP) from noninvasive finger pressure measurements. This project attempts to replicate the algorithms used in the Finometer Model 1 [1] correcting for pulse wave distortions and pressure gradients. Two level-shifting implementations are included:
 
+
 1. **Default implementation**
 2. **Return-to-Flow (RTF) implementation**, leveraging the methodology described in the referenced papers. The input of the function is either:
 
@@ -53,40 +54,44 @@ ReBAP = FinAP_\text{filtered} - \Delta P
 #### Default Regression-Based Implementation [2]
 
 ```math
-\Delta P = -13.3 - 0.194 \cdot P_\text{sys} + 0.574 \cdot P_\text{dias}
+\Delta P = -13.3 - 0.194 \cdot P_\text{sys\_filt} + 0.574 \cdot P_\text{dias\_filt}
 ```
 
 Where:
 
 
--  $$P_\text{sys}$$: Inverse-modeled finger systolic pressure, derived as:
+-  $$P_{sys filt}$$: Inverse-modeled finger systolic pressure, derived as:
   
   ```math
-  P_\text{sys} = \text{Sys}(\text{FinAP}_\text{filtered}(t))
+  P_\text{sys\_filt} = \text{Sys}(\text{FinAP}_\text{filtered}(t))
   ```
 
-- $$P_\text{dias}$$: Inverse-modeled finger diastolic pressure, derived as:
+- $$P_{dias filt}$$: Inverse-modeled finger diastolic pressure, derived as:
   
   ```math
-  P_\text{dias} = \text{DiaSys}(\text{FinAP}_\text{filtered}(t))
+  P_\text{dias\_filt} = \text{DiaSys}(\text{FinAP}_\text{filtered}(t))
   ```
 
 #### Return-to-Flow (RTF) Implementation [3]
 
-
-
-and
-
 ```math
-\text{Corr} = 18.7 + 0.44 \cdot P_\text{cuff RTF} - 0.36 \cdot FP_\text{sys} - 0.34 \cdot FP_\text{dias}
+\Delta P = -18.7 - 0.44 \cdot P_\text{cuff RTF} + 0.36 \cdot P_\text{sys} + 0.34 \cdot P_\text{dias}
 ```
 
 Where:
-- $$FP_\text{corrected}$$: Corrected finger pressure.
-- $$FP_\text{uncorrected}$$: Uncorrected finger pressure.
 - $$P_\text{cuff RTF}$$: Return-to-Flow cuff pressure.
-- $$FP_\text{sys}$$: Systolic finger pressure.
-- $$FP_\text{dias}$$: Diastolic finger pressure.
+
+-  $$P_{sys}$$: Finger systolic pressure, derived as:
+  
+  ```math
+  P_\text{sys} = \text{Sys}(\text{FinAP}(t))
+  ```
+
+- $$P_{dias}$$: Finger diastolic pressure, derived as:
+  
+  ```math
+  P_\text{dias} = \text{DiaSys}(\text{FinAP}(t))
+  ```
 
 ---
 
@@ -138,3 +143,7 @@ This project is released under the MIT License. See the [LICENSE](LICENSE) file 
 For questions or support, please open an issue or contact the repository maintainer.
 
 ---
+
+## Disclaimer
+We cannot garantee that these are the exact alorithms used in the Finapres devices, on that these are the ones indicated to be used in the Finometer Model 1.
+
