@@ -19,9 +19,9 @@ FinAP2ReBAP is a MATLAB implementation for reconstructing brachial artery pressu
 
 ### Pulse Wave Distortion Correction
 
-\[
+```math
 H(f) = K \cdot \frac{(1 + j f / f_d)}{1 + 2j \xi f / f_r - (f / f_r)^2}
-\]
+```
 
 Where:
 - \(H(f)\): Transfer function.
@@ -32,9 +32,9 @@ Where:
 
 ### Level Correction (Regression-Based)
 
-\[
+```math
 \Delta P = -13.3 - 0.194 \cdot P_\text{sys} + 0.574 \cdot P_\text{dias}
-\]
+```
 
 Where:
 - \(P_\text{sys}\): Systolic pressure.
